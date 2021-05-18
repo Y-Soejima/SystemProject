@@ -6,6 +6,7 @@ using UnityEngine;
 public class SkillTreeBase : MonoBehaviour
 {
     [SerializeField] bool[] isSkillGets = new bool[Enum.GetValues(typeof(SkillList)).Length];
+    [SerializeField] private GameObject skillCell;
     int skillNum;
     bool isSkillGet;
     public enum SkillList
@@ -20,6 +21,7 @@ public class SkillTreeBase : MonoBehaviour
     {
         for (int i = 0; i < isSkillGets.Length; i++)
         {
+
             isSkillGets[i] = false;
         }
     }
