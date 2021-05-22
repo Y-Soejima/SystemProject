@@ -1,11 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-public class HpUp : SkillTreeBase
+
+public class MpUp : SkillTreeBase
 {
-    [SerializeField] private int hpUpValue;
-    
+    [SerializeField] private int mpUpValue;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,8 +22,8 @@ public class HpUp : SkillTreeBase
         if (skill.isSkillGet == false)
         {
             bool isGet = true;
-            for (int i = 0; i < skill.necessarySkill.Length; i++) 
-            { 
+            for (int i = 0; i < skill.necessarySkill.Length; i++)
+            {
                 if (skill.necessarySkill[i].isSkillGet == false)
                 {
                     isGet = false;
@@ -33,7 +32,7 @@ public class HpUp : SkillTreeBase
             }
             if (isGet)
             {
-                PlayerStatus.FindObjectOfType<PlayerStatus>().HpChange(hpUpValue);
+                PlayerStatus.FindObjectOfType<PlayerStatus>().MpChange(mpUpValue);
                 base.SkillGet(skill);
             }
         }

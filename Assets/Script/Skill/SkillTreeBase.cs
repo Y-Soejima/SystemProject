@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
+[RequireComponent(typeof(EventTrigger))]
 public class SkillTreeBase : MonoBehaviour
 {
-    [SerializeField] private int skillNum;
     [SerializeField] public bool isSkillGet = false;
-    [SerializeField] public SkillTreeBase necessarySkill;
+    [SerializeField] public SkillTreeBase[] necessarySkill;
     void Start()
     {
         
@@ -16,12 +17,6 @@ public class SkillTreeBase : MonoBehaviour
     void Update()
     {
 
-    }
-
-    void SkillGetChack(int skillNum, bool isSkillGet)
-    {
-        this.skillNum = skillNum;
-        this.isSkillGet = isSkillGet;
     }
 
     public virtual void SkillGet(SkillTreeBase skill)

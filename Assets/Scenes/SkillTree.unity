@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 285328157}
   - component: {fileID: 285328156}
   - component: {fileID: 285328155}
-  - component: {fileID: 285328158}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -241,21 +240,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285328153}
   m_CullTransparentMesh: 0
---- !u!114 &285328158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 285328153}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 351af682981ddc6498d8351cf70e8092, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skillNum: 0
-  isSkillGet: 0
-  necessarySkill: {fileID: 0}
 --- !u!1 &505899856
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,9 +803,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10b14a6a361a1764ab82c2a223b0e7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillNum: 0
   isSkillGet: 0
-  necessarySkill: {fileID: 2054215465}
+  necessarySkill:
+  - {fileID: 2054215465}
   hpUpValue: 5
 --- !u!114 &1056296939
 MonoBehaviour:
@@ -1090,9 +1074,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10b14a6a361a1764ab82c2a223b0e7a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillNum: 0
   isSkillGet: 0
-  necessarySkill: {fileID: 1056296938}
+  necessarySkill:
+  - {fileID: 1056296938}
   hpUpValue: 15
 --- !u!1 &1392799995
 GameObject:
@@ -1280,6 +1264,7 @@ GameObject:
   - component: {fileID: 1695918908}
   - component: {fileID: 1695918907}
   - component: {fileID: 1695918906}
+  - component: {fileID: 1695918909}
   m_Layer: 5
   m_Name: Button (9)
   m_TagString: Untagged
@@ -1387,6 +1372,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1695918904}
   m_CullTransparentMesh: 0
+--- !u!114 &1695918909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695918904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e244d98c39cc0ef41bd1534b244e87c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSkillGet: 0
+  necessarySkill:
+  - {fileID: 1367933245}
+  - {fileID: 0}
+  mpUpValue: 15
 --- !u!1 &1784822890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,7 +1458,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MAK+15
+  m_Text: AK+15
 --- !u!222 &1784822893
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1597,9 +1599,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 351af682981ddc6498d8351cf70e8092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillNum: 0
   isSkillGet: 1
-  necessarySkill: {fileID: 0}
+  necessarySkill: []
 --- !u!1 &2113712521
 GameObject:
   m_ObjectHideFlags: 0
