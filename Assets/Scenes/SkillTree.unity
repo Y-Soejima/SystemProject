@@ -133,6 +133,8 @@ GameObject:
   - component: {fileID: 285328157}
   - component: {fileID: 285328156}
   - component: {fileID: 285328155}
+  - component: {fileID: 285328159}
+  - component: {fileID: 285328158}
   m_Layer: 5
   m_Name: Button (1)
   m_TagString: Untagged
@@ -157,7 +159,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -197, y: 0}
+  m_AnchoredPosition: {x: -197, y: -141}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &285328155
@@ -240,6 +242,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285328153}
   m_CullTransparentMesh: 0
+--- !u!114 &285328158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285328153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 285328159}
+          m_MethodName: SkillGet
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 285328159}
+            m_ObjectArgumentAssemblyTypeName: SkillTreeBase, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &285328159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285328153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be16789b50dae741b03c3c8e8cd2063, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isSkillGet: 0
+  necessarySkill:
+  - {fileID: 2054215465}
+  atkUpValue: 15
 --- !u!1 &505899856
 GameObject:
   m_ObjectHideFlags: 0
@@ -708,7 +754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230, y: -4}
+  m_AnchoredPosition: {x: 200, y: -156}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1056296935
@@ -951,7 +997,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 438, y: 0}
+  m_AnchoredPosition: {x: 194, y: 42}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1367933241
@@ -1264,6 +1310,7 @@ GameObject:
   - component: {fileID: 1695918908}
   - component: {fileID: 1695918907}
   - component: {fileID: 1695918906}
+  - component: {fileID: 1695918910}
   - component: {fileID: 1695918909}
   m_Layer: 5
   m_Name: Button (9)
@@ -1289,7 +1336,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -382, y: 5}
+  m_AnchoredPosition: {x: -89, y: 110}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1695918906
@@ -1387,8 +1434,36 @@ MonoBehaviour:
   isSkillGet: 0
   necessarySkill:
   - {fileID: 1367933245}
-  - {fileID: 0}
+  - {fileID: 285328159}
   mpUpValue: 15
+--- !u!114 &1695918910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1695918904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1695918909}
+          m_MethodName: SkillGet
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 1695918909}
+            m_ObjectArgumentAssemblyTypeName: SkillTreeBase, Assembly-CSharp
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1784822890
 GameObject:
   m_ObjectHideFlags: 0
@@ -1458,7 +1533,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: AK+15
+  m_Text: ATK+15
 --- !u!222 &1784822893
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1504,7 +1579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 3, y: 0}
+  m_AnchoredPosition: {x: 3, y: -281}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2054215462
