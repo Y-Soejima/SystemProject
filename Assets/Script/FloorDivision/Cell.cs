@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public enum CellState
 {
     wall,
-    floor
+    floor,
+    divisionLine
 }
 public class Cell : MonoBehaviour
 {
@@ -33,6 +34,10 @@ public class Cell : MonoBehaviour
         else if (cellState == CellState.floor)
         {
             image.color = Color.red;
+        }
+        else if (cellState== CellState.divisionLine)
+        {
+            image.color = Color.blue;
         }
     }
 }
