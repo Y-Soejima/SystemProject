@@ -28,6 +28,16 @@ public class Division : MonoBehaviour
             }
         }
         Delimit(min_v, min_h, max_v, max_h, cellArray, roomNum);
+        for (int i = 0; i < cellArray.GetLength(0); i++)
+        {
+            for (int k = 0; k < cellArray.GetLength(1); k++)
+            {
+                if (cellArray[i, k].cellState == CellState.divisionLine)
+                {
+                    cellArray[i, k].cellState = CellState.wall;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -99,10 +109,10 @@ public class Division : MonoBehaviour
                 cells[i, k].cellState = CellState.floor;
             }
         }
-        WayCreate(minV + 1, minH + 1, maxV - 1, maxH - 1, cells);
+        WayCreate(minV, minH, maxV - 1, maxH - 1, cells);
     }
 
-    //道を生成
+    //部屋から道を伸ばす
     void WayCreate(int minV, int minH, int maxV, int maxH, Cell[,] cells)
     {
         int v_length = maxV - minV;
@@ -111,26 +121,60 @@ public class Division : MonoBehaviour
         int maxVside = 0;
         int minHside = 0;
         int maxHside = 0;
-        if (v_length > 2)
+        if (v_length > 3)
         {
-            minVside = Random.Range(minV + 1, maxV - 1);
-            maxVside = Random.Range(minV + 1, maxV - 1);
+            minVside = Random.Range(minV + 2, maxV - 2);
+            maxVside = Random.Range(minV + 2, maxV - 2);
         }
-        if (h_length > 2)
+        if (h_length > 3)
         {
-            minHside = Random.Range(minH + 1, maxH - 1);
-            maxHside = Random.Range(minH + 1, maxH - 1);
+            minHside = Random.Range(minH + 2, maxH - 2);
+            maxHside = Random.Range(minH + 2, maxH - 2);
         }
 
         if (minVside != 0)
         {
-            for (int i = minH - 1; i > 0; i--)
+            for (int i = minH; i > 0; i--)
             {
-                if (cells[minVside, i].cellState == CellState.divisionLine)
+                if (cells[minVside, i].cellState == CellState.divisionLine || cells[minVside, i].cellState == CellState.floor)
                 {
-                    for (int k = minH - 1; k >= i; k--)
+                    for (int k = minH; k >= i; k--)
                     {
                         cells[minVside, k].cellState = CellState.floor;
+                    }
+                    for (int k = minVside; k >= 0; k--)
+                    {
+                        if (cells[k, i].cellState == CellState.wall || k == 0)
+                        {
+                            for (int m = minVside - 1; m > k + 1; m--)
+                            {
+                                if (cells[m, i].cellState == CellState.floor)
+                                {
+                                    for (int n = minVside - 1; n >= m; n--)
+                                    {
+                                        cells[n, i].cellState = CellState.floor;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    for (int k = minVside; k < cells.GetLength(0); k++)
+                    {
+                        if (cells[k, i].cellState == CellState.wall || k == cells.GetLength(0) - 1)
+                        {
+                            for (int m = minVside + 1; m < k - 1; m++)
+                            {
+                                if (cells[m, i].cellState == CellState.floor)
+                                {
+                                    for (int n = minVside + 1; n <= m; n++)
+                                    {
+                                        cells[n, i].cellState = CellState.floor;
+                                    }
+                                }
+                            }
+                            break;
+                        }
                     }
                     break;
                 }
@@ -140,11 +184,45 @@ public class Division : MonoBehaviour
         {
             for (int i = maxH; i < cells.GetLength(1); i++)
             {
-                if (cells[maxVside, i].cellState == CellState.divisionLine)
+                if (cells[maxVside, i].cellState == CellState.divisionLine || cells[maxVside, i].cellState == CellState.floor)
                 {
                     for (int k = maxH; k <= i; k++)
                     {
                         cells[maxVside, k].cellState = CellState.floor;
+                    }
+                    for (int k = maxVside; k >= 0; k--)
+                    {
+                        if (cells[k, i].cellState == CellState.wall || k == 0)
+                        {
+                            for (int m = maxVside - 1; m > k + 1; m--)
+                            {
+                                if (cells[m, i].cellState == CellState.floor)
+                                {
+                                    for (int n = maxVside - 1; n >= m; n--)
+                                    {
+                                        cells[n, i].cellState = CellState.floor;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    for (int k = maxVside; k < cells.GetLength(0); k++)
+                    {
+                        if (cells[k, i].cellState == CellState.wall || k == cells.GetLength(0) - 1)
+                        {
+                            for (int m = maxVside + 1; m < k - 1; m++)
+                            {
+                                if (cells[m, i].cellState == CellState.floor)
+                                {
+                                    for (int n = maxVside + 1; n <= m; n++)
+                                    {
+                                        cells[n, i].cellState = CellState.floor;
+                                    }
+                                }
+                            }
+                            break;
+                        }
                     }
                     break;
                 }
@@ -152,13 +230,47 @@ public class Division : MonoBehaviour
         }
         if (minHside != 0)
         {
-            for (int i = minV - 1; i > 0; i--)
+            for (int i = minV; i > 0; i--)
             {
-                if (cells[i, minHside].cellState == CellState.divisionLine)
+                if (cells[i, minHside].cellState == CellState.divisionLine || cells[i, minHside].cellState == CellState.floor)
                 {
-                    for (int k = minV - 1; k >= i; k--)
+                    for (int k = minV; k >= i; k--)
                     {
                         cells[k, minHside].cellState = CellState.floor;
+                    }
+                    for (int k = minHside; k >= 0; k--)
+                    {
+                        if (cells[i, k].cellState == CellState.wall || k == 0)
+                        {
+                            for (int m = minHside - 1; m > k + 1; m--)
+                            {
+                                if (cells[i, m].cellState == CellState.floor)
+                                {
+                                    for (int n = minHside - 1; n >= m; n--)
+                                    {
+                                        cells[i, n].cellState = CellState.floor;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    for (int k = minHside; k < cells.GetLength(1); k++)
+                    {
+                        if (cells[i, k].cellState == CellState.wall || k == cells.GetLength(1) - 1)
+                        {
+                            for (int m = minHside + 1; m < k - 1; m++)
+                            {
+                                if (cells[i, m].cellState == CellState.floor)
+                                {
+                                    for (int n = minHside + 1; n <= m; n++)
+                                    {
+                                        cells[i, n].cellState = CellState.floor;
+                                    }
+                                }
+                            }
+                            break;
+                        }
                     }
                     break;
                 }
@@ -168,11 +280,45 @@ public class Division : MonoBehaviour
         {
             for (int i = maxV; i < cells.GetLength(0); i++)
             {
-                if (cells[i, maxHside].cellState == CellState.divisionLine)
+                if (cells[i, maxHside].cellState == CellState.divisionLine || cells[i, maxHside].cellState == CellState.floor)
                 {
                     for (int k = maxV; k <= i; k++)
                     {
                         cells[k, maxHside].cellState = CellState.floor;
+                    }
+                    for (int k = maxHside; k >= 0; k--)
+                    {
+                        if (cells[i, k].cellState == CellState.wall || k == 0)
+                        {
+                            for (int m = maxHside - 1; m > k + 1; m--)
+                            {
+                                if (cells[i, m].cellState == CellState.floor)
+                                {
+                                    for (int n = maxHside - 1; n >= m; n--)
+                                    {
+                                        cells[i, n].cellState = CellState.floor;
+                                    }
+                                }
+                            }
+                            break;
+                        }
+                    }
+                    for (int k = maxHside; k < cells.GetLength(1); k++)
+                    {
+                        if (cells[i, k].cellState == CellState.wall || k == cells.GetLength(1) - 1)
+                        {
+                            for (int m = maxHside + 1; m < k - 1; m++)
+                            {
+                                if (cells[i, m].cellState == CellState.floor)
+                                {
+                                    for (int n = maxHside + 1; n <= m; n++)
+                                    {
+                                        cells[i, n].cellState = CellState.floor;
+                                    }
+                                }
+                            }
+                            break;
+                        }
                     }
                     break;
                 }
