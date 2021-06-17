@@ -57,7 +57,7 @@ public class Division : MonoBehaviour
         int h_length = maxH - minH;
         if (v_length <= 8 && h_length <= 8 || room == 0)
         {
-            roomCreate(minV, minH, maxV, maxH, cells);
+            roomCreate(minV, minH, maxV - 1, maxH - 1, cells);
             return;
         }
         int delimitLine = 0;
@@ -70,12 +70,12 @@ public class Division : MonoBehaviour
             }
             if (delimitLine >= v_length / 2)
             {
-                roomCreate(delimitLine + 1, minH, maxV, maxH, cells);
+                roomCreate(delimitLine + 1, minH, maxV - 1, maxH - 1, cells);
                 Delimit(minV, minH, delimitLine, maxH, cells, room);
             }
             else
             {
-                roomCreate(minV, minH, delimitLine, maxH, cells);
+                roomCreate(minV, minH, delimitLine - 1, maxH - 1, cells);
                 Delimit(delimitLine + 1, minH, maxV, maxH, cells, room);
             }
         }
@@ -88,12 +88,12 @@ public class Division : MonoBehaviour
             }
             if (delimitLine >= h_length / 2)
             {
-                roomCreate(minV, delimitLine + 1, maxV, maxH, cells);
+                roomCreate(minV, delimitLine + 1, maxV - 1, maxH - 1, cells);
                 Delimit(minV, minH, maxV, delimitLine, cells, room);
             }
             else
             {
-                roomCreate(minV, minH, maxV, delimitLine, cells);
+                roomCreate(minV, minH, maxV - 1, delimitLine - 1, cells);
                 Delimit(minV, delimitLine + 1, maxV, maxH, cells, room);
             }
         }
@@ -103,29 +103,29 @@ public class Division : MonoBehaviour
     /// 部屋の生成
     /// </summary>
     /// <param name="minV">分割された空間の左端</param>
-    /// <param name="minH">分割された空間の右端</param>
-    /// <param name="maxV">分割された空間の上端</param>
+    /// <param name="minH">分割された空間の上端</param>
+    /// <param name="maxV">分割された空間の右端</param>
     /// <param name="maxH">分割された空間の下端</param>
     /// <param name="cells">配列</param>
     void roomCreate(int minV, int minH, int maxV, int maxH, Cell[,] cells)
     {
-        for (int i = minV + 1; i < maxV - 1; i++)
+        for (int i = minV + 1; i < maxV; i++)
         {
-            for (int k = minH + 1; k < maxH - 1; k++)
+            for (int k = minH + 1; k < maxH; k++)
             {
                 cells[i, k].cellState = CellState.floor;
             }
         }
-        WayCreate(minV, minH, maxV - 1, maxH - 1, cells);
+        WayCreate(minV, minH, maxV, maxH, cells);
     }
 
     /// <summary>
     /// 部屋から道を伸ばす
     /// </summary>
-    /// <param name="minV">部屋の左端</param>
-    /// <param name="minH">部屋の右端</param>
-    /// <param name="maxV">部屋の上端</param>
-    /// <param name="maxH">部屋の下端</param>
+    /// <param name="minV">部屋の左端 - 1</param>
+    /// <param name="minH">部屋の上端 - 1</param>
+    /// <param name="maxV">部屋の右端 + 1</param>
+    /// <param name="maxH">部屋の下端 + 1</param>
     /// <param name="cells">配列</param>
     void WayCreate(int minV, int minH, int maxV, int maxH, Cell[,] cells)
     {
