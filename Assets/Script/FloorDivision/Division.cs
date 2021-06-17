@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//生成の流れ
+//まず縦横の長い方を調べ、長い方を分割する
+//分割して狭くなった方に部屋を作る
+//生成された部屋の四方に分割ラインを探して検索できたらそこまで道を生やす
+//生やした道から分割ライン上を検索して他の部屋から生えてる道を探して検索できたら道どうしを繋げる
+//分割して広くなったほうをまた分割する
+//ここまでを指定した部屋の数になるまで行う
+//(残った分割ラインを消す)
 public class Division : MonoBehaviour
 {
     [SerializeField] int min_v;　       //　マップを生成する範囲の左端
