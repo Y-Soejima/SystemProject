@@ -9,29 +9,38 @@ public class UniRxTestObserver : MonoBehaviour
     /// <summary>
     /// イベント（UniRx）の宣言
     /// </summary>
+    int a = 0;
     Subject<int> subject = new Subject<int>();
+    Subject<string> subject1 = new Subject<string>();
+    Subject<Unit> Subject3 = new Subject<Unit>();
+
+    public IObservable<Unit> Observable1 => Subject3;
     // Start is called before the first frame update
     void Start()
     {
-        int a = 0;
         //イベントの登録
-        subject.Subscribe(_ => Debug.Log(a));
+        subject.Subscribe(_ => Debug.Log(a++));
+        subject1.Subscribe(str => Text(str));
+
         //イベントを発行
-        subject.OnNext(a);
-        //1秒ごとにイベントを発行
-        Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(_ => subject.OnNext(a++));
-        //subject.OnNext(x);
+
+        //subject1.OnNext("AAA");
+
+        //1秒ごとにイベントを
+        //Observable.Interval(TimeSpan.FromSeconds(1)).Subscribe(_ => subject.OnNext(a++));
+
         //コルーチンを上から順に発行（実行）
-        Observable.FromCoroutine(CoroutineA)
-        .SelectMany(CoroutineB)
-        .SelectMany(CoroutineA)//SelectManyで合成可能
-        .Subscribe(_ => Debug.Log("All coroutine finished"));
+        //Observable.FromCoroutine(CoroutineA)
+        //.SelectMany(CoroutineB)
+        //.SelectMany(CoroutineA)//SelectManyで合成可能
+        //.Subscribe(_ => Debug.Log("All coroutine finished"));
     }
 
     // Update is called once per frame
     void Update()
-    { 
-        
+    {
+        //subject.OnNext(a);
+        //subject.OnCompleted();
     }
 
     IEnumerator CoroutineA()
@@ -39,6 +48,7 @@ public class UniRxTestObserver : MonoBehaviour
         Debug.Log("CoroutineA start");
         yield return new WaitForSeconds(3);
         Debug.Log("CoroutineA finished");
+
     }
 
     IEnumerator CoroutineB()
@@ -46,5 +56,10 @@ public class UniRxTestObserver : MonoBehaviour
         Debug.Log("CoroutineB start");
         yield return new WaitForSeconds(1);
         Debug.Log("CoroutineB finished");
+    }
+
+    void Text(string str)
+    {
+        Debug.Log(str);
     }
 }
