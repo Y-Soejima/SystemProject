@@ -329,9 +329,10 @@ MonoBehaviour:
   m_z: 20
   m_firstCreatePosition: {fileID: 1554178423}
   m_createFloorNum: 5
-  m_floorPrefab: {fileID: 4933599735365699544, guid: 54f5151a62d5b1d47ae7898e5d4638fd,
+  m_floorPrefab:
+  - {fileID: 4933599735365699544, guid: 54f5151a62d5b1d47ae7898e5d4638fd, type: 3}
+  m_lastFloorPrefab: {fileID: 309391783612450141, guid: d5b8cb13011672041b3a8e7071f2f5ec,
     type: 3}
-  m_rastFloorPrefab: {fileID: 0}
 --- !u!4 &1554178423
 Transform:
   m_ObjectHideFlags: 0

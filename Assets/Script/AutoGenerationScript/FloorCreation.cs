@@ -11,7 +11,7 @@ public class FloorCreation : MonoBehaviour
     [SerializeField] float m_z;
     [SerializeField] Transform m_firstCreatePosition;
     [SerializeField]int m_createFloorNum = 5;
-    [SerializeField] GameObject m_floorPrefab;
+    [SerializeField] GameObject[] m_floorPrefab;
     [SerializeField] GameObject m_lastFloorPrefab;
     GameObject[] m_floors;
     Subject<Unit> m_createEvent = new Subject<Unit>();
@@ -27,7 +27,8 @@ public class FloorCreation : MonoBehaviour
     {
         if (m_createCount < m_createFloorNum - 1)
         {
-            var floor = Instantiate(m_floorPrefab, new Vector3(m_firstCreatePosition.position.x + m_createCount * m_x, 0, m_firstCreatePosition.position.z + m_createCount * m_z), m_firstCreatePosition.rotation);
+            int floorNum = UnityEngine.Random.Range(0, m_floorPrefab.Length);
+            var floor = Instantiate(m_floorPrefab[floorNum], new Vector3(m_firstCreatePosition.position.x + m_createCount * m_x, 0, m_firstCreatePosition.position.z + m_createCount * m_z), m_firstCreatePosition.rotation);
             m_floors[m_createCount] = floor;
             m_createCount++;
         }

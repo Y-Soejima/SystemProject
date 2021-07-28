@@ -6,6 +6,7 @@ using UniRx;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] UniRxTestObserver unirxTest = default;
+    bool muteki = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,4 +25,5 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Start");
     }
+
 }
