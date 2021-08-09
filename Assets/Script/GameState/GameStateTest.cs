@@ -19,7 +19,9 @@ public class GameStateTest : MonoBehaviour
         m_currentState = GameState.StartGame;
         m_gameEvent.Where(m_currentState => m_currentState == GameState.StartGame).Distinct().Subscribe(_ => StartCoroutine(GameStart()));
         m_gameEvent.Where(m_currentState => m_currentState == GameState.InGame).Distinct().Subscribe( _ => StartCoroutine(InGame()));
-        m_gameEvent.Where(m_currentState => m_currentState == GameState.EndGame).Distinct().Subscribe(_ => StartCoroutine(EndGame())); ;
+        m_gameEvent.Where(_ => Input.GetKeyDown(KeyCode.A)).Where(m_currentState => m_currentState == GameState.InGame).Subscribe( _ => Debug.Log("A"));
+        //m_gameEvent.Where(m_currentState => m_currentState == GameState.InGame).Distinct().Subscribe( _ => StartCoroutine(InGame()));
+        m_gameEvent.Where(m_currentState => m_currentState == GameState.EndGame).Distinct().Subscribe(_ => StartCoroutine(EndGame()));
     }
 
     void Update()
