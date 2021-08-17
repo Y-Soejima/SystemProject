@@ -13,6 +13,7 @@ public class UniRxTestObserver : MonoBehaviour
     Subject<int> subject = new Subject<int>();
     Subject<string> subject1 = new Subject<string>();
     Subject<Unit> Subject3 = new Subject<Unit>();
+    Subject<Unit> subject4 = new Subject<Unit>();
 
     public IObservable<Unit> Observable1 => Subject3;
     // Start is called before the first frame update
@@ -21,6 +22,8 @@ public class UniRxTestObserver : MonoBehaviour
         //イベントの登録
         subject.Subscribe(_ => Debug.Log(a++));
         subject1.Subscribe(str => Text(str));
+        subject4.Subscribe(_ => VirtualUpDate());
+        subject4.OnNext(Unit.Default);
 
         //イベントを発行
 
@@ -41,6 +44,7 @@ public class UniRxTestObserver : MonoBehaviour
     {
         //subject.OnNext(a);
         //subject.OnCompleted();
+        //Subject3.OnNext(Unit.Default);
     }
 
     IEnumerator CoroutineA()
@@ -61,5 +65,13 @@ public class UniRxTestObserver : MonoBehaviour
     void Text(string str)
     {
         Debug.Log(str);
+    }
+
+    void VirtualUpDate()
+    {
+        while(true)
+        {
+            Subject3.OnNext(Unit.Default);
+        }
     }
 }
