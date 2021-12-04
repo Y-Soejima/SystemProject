@@ -8,16 +8,8 @@ using UnityEngine.EventSystems;
 public class SkillTreeBase : MonoBehaviour
 {
     [SerializeField] public bool isSkillGet = false;
-    [SerializeField] public SkillTreeBase[] necessarySkill;
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-
-    }
+    [SerializeField] protected int m_skillPoint;
+    [SerializeField] protected SkillTreeBase[] necessarySkill;
 
     public virtual void SkillGet(SkillTreeBase skill)
     {

@@ -19,12 +19,12 @@ public class MpUp : SkillTreeBase
 
     public override void SkillGet(SkillTreeBase skill)
     {
-        if (skill.isSkillGet == false)
+        if (isSkillGet == false)
         {
             bool isGet = true;
-            for (int i = 0; i < skill.necessarySkill.Length; i++)
+            for (int i = 0; i < necessarySkill.Length; i++)
             {
-                if (skill.necessarySkill[i].isSkillGet == false)
+                if (necessarySkill[i].isSkillGet == false)
                 {
                     isGet = false;
                     break;

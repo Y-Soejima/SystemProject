@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using UniRx.Triggers;
 using System;
 
 public class UniRxTestObserver : MonoBehaviour
@@ -14,8 +15,8 @@ public class UniRxTestObserver : MonoBehaviour
     Subject<string> subject1 = new Subject<string>();
     Subject<Unit> Subject3 = new Subject<Unit>();
     Subject<Unit> subject4 = new Subject<Unit>();
-
-    public IObservable<Unit> Observable1 => Subject3;
+    
+    public IObservable<Unit> Observable1 => this.UpdateAsObservable();
     // Start is called before the first frame update
     void Start()
     {
@@ -24,7 +25,9 @@ public class UniRxTestObserver : MonoBehaviour
         subject1.Subscribe(str => Text(str));
         subject4.Subscribe(_ => VirtualUpDate());
         subject4.OnNext(Unit.Default);
-
+        Observable1.Subscribe(_ => Debug.Log("a"));
+        //this.UpdateAsObservable().Subscribe(_ =>Subject3.OnNext(Unit.Default));
+        //Observable.EveryUpdate(_=>)
         //イベントを発行
 
         //subject1.OnNext("AAA");
@@ -44,7 +47,7 @@ public class UniRxTestObserver : MonoBehaviour
     {
         //subject.OnNext(a);
         //subject.OnCompleted();
-        //Subject3.OnNext(Unit.Default);
+        Subject3.OnNext(Unit.Default);
     }
 
     IEnumerator CoroutineA()
