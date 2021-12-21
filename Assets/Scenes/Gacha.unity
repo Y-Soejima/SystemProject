@@ -833,6 +833,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stone: 100000000
+  _characterBases: []
+  _charaCount: 
 --- !u!4 &1616507306
 Transform:
   m_ObjectHideFlags: 0
@@ -1129,5 +1131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _button: {fileID: 1814101585}
-  _num: 10
-  _requestStone: 0
+  _num: 100000
+  _requestStone: 5
+  _max: 30
+  _count: 5

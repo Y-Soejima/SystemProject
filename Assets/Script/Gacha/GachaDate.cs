@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UniRx;
 
 public class GachaDate : MonoBehaviour
 {
@@ -26,10 +27,10 @@ public class GachaDate : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(LotSet());
+        //StartCoroutine(LotSet());
     }
 
-    IEnumerator LotSet()
+    public IEnumerator LotSet()
     {
         yield return new WaitForSeconds(0.1f);
 

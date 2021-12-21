@@ -18,7 +18,6 @@ public class Gacha : MonoBehaviour
     {
         _user = User.Instance;
         _gachaDate = GachaDate.Instance;
-        Debug.Log(_user);
         _requestStone = 5 * _num;
         _button.OnClickAsObservable().Where(_ => _user.stone >= _requestStone).Subscribe(_ => { Draw(_num);  _user.stone -= _requestStone; }).AddTo(_button);
     }
@@ -51,17 +50,20 @@ public class Gacha : MonoBehaviour
         if (value < _gachaDate.SuperRareProbability)
         {
             var lotChara =  CharacterLot(_gachaDate._superRareCharacterlist, Random.Range(0, _gachaDate.SuperRareProbability));
-            Debug.Log(lotChara.Id);
+            //Debug.Log(lotChara.Id);
+            CharacterGet(lotChara);
         }
         else if (value < _gachaDate.RareProbability + _gachaDate.SuperRareProbability)
         {
             var lotChara = CharacterLot(_gachaDate._rareCharacterlist, Random.Range(0, _gachaDate.RareProbability));
-            Debug.Log(lotChara.Id);
+            //Debug.Log(lotChara.Id);
+            CharacterGet(lotChara);
         }
         else
         {
             var lotChara = CharacterLot(_gachaDate._normalCharacterlist, Random.Range(0, _gachaDate.NormalProbability));
-            Debug.Log(lotChara.Id);
+            //Debug.Log(lotChara.Id);
+            CharacterGet(lotChara);
         }
     }
 
@@ -71,19 +73,22 @@ public class Gacha : MonoBehaviour
         if (value < _gachaDate.SuperRareProbability)
         {
             var lotChara = CharacterLot(_gachaDate._superRareCharacterlist, Random.Range(0, _gachaDate.SuperRareProbability));
-            Debug.Log(lotChara.Id);
+            //Debug.Log(lotChara.Id);
+            CharacterGet(lotChara);
         }
         else
         {
             var lotChara = CharacterLot(_gachaDate._rareCharacterlist, Random.Range(0, _gachaDate.RareProbability));
-            Debug.Log(lotChara.Id);
+            //Debug.Log(lotChara.Id);
+            CharacterGet(lotChara);
         }
     }
 
     void MaxLot()
     {
         var lotChara = CharacterLot(_gachaDate._superRareCharacterlist, Random.Range(0, _gachaDate.SuperRareProbability));
-        Debug.Log(lotChara.Id);
+        //Debug.Log(lotChara.Id);
+        CharacterGet(lotChara);
     }
 
     CharacterBase CharacterLot(List<(CharacterBase, float)> characterList, float rand)
@@ -98,5 +103,16 @@ public class Gacha : MonoBehaviour
             }
         }
         return null;
+    }
+
+    void CharacterGet(CharacterBase getCharacter)
+    {
+        for(int i = 0; i < _user._characterList.Count;i++)
+        {
+            if (getCharacter.Id == _user._characterList[i].Item1.Id)
+            {
+                _user._characterList[i] = (_user._characterList[i].Item1, _user._characterList[i].Item2 + 1);
+            }
+        }
     }
 }
