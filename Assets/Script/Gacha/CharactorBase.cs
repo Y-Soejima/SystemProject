@@ -8,7 +8,7 @@ public enum RarityList
     Rare,
     SuperRare,
 }
-public class CharacterBase : MonoBehaviour
+public class CharactorBase : MonoBehaviour
 {
     [SerializeField] string _name;
     [SerializeField] int _id;

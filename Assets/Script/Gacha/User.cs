@@ -6,10 +6,11 @@ using UniRx;
 public class User : MonoBehaviour
 {
     public static User Instance { get; private set; }
+    public string userId;
     public int stone;
     GachaDate _gachaDate;
-    public List<(CharacterBase, int)> _characterList = new List<(CharacterBase, int)>();
-    [SerializeField] List<CharacterBase> _characterBases =  new List<CharacterBase> ();
+    public List<(CharactorBase, int)> _characterList = new List<(CharactorBase, int)>();
+    [SerializeField] List<CharactorBase> _characterBases =  new List<CharactorBase> ();
     [SerializeField] List<int> _charaCount = new List<int>();
 
     private void Awake()

@@ -8,16 +8,19 @@ public class GachaDate : MonoBehaviour
 {
     public static GachaDate Instance { get; private set; }
     //タプル(１つの変数に複数の値を格納できる)
-    public List<(CharacterBase, float)> _normalCharacterlist = new List<(CharacterBase, float)>();
-    public List<(CharacterBase, float)> _rareCharacterlist = new List<(CharacterBase, float)>();
-    public List<(CharacterBase, float)> _superRareCharacterlist = new List<(CharacterBase, float)>();
+    public List<(CharactorBase, float)> _normalCharacterlist = new List<(CharactorBase, float)>();
+    public List<(CharactorBase, float)> _rareCharacterlist = new List<(CharactorBase, float)>();
+    public List<(CharactorBase, float)> _superRareCharacterlist = new List<(CharactorBase, float)>();
+    public float[] list;
     public float NormalProbability;
     public float RareProbability;
     public float SuperRareProbability;
-    [SerializeField] List<CharacterBase> _superRarePiclist = new List<CharacterBase>();
+    [SerializeField] List<CharactorBase> _superRarePiclist = new List<CharactorBase>();
     [SerializeField] List<float> _superRarePicWeight = new List<float>();
-    [SerializeField] List<CharacterBase> _rarePiclist = new List<CharacterBase>();
+    [SerializeField] List<CharactorBase> _rarePiclist = new List<CharactorBase>();
     [SerializeField] List<float> _rarePicWeight = new List<float>();
+    public float superRareNotPicWeight = 1;
+    public float rareNotPicWeight = 1;
 
 
     private void Awake()
@@ -32,26 +35,26 @@ public class GachaDate : MonoBehaviour
 
     public IEnumerator LotSet()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.5f);
 
         Set();
     }
 
     public void Set()
     {
-        float superRareNotPicWeight = 0;
-        float rareNotPicWeight = 0;
+        list = new float[_rareCharacterlist.Count];
+       
         for (int i = 0; i < _superRarePicWeight.Count; i++)
         {
-            superRareNotPicWeight += _superRarePicWeight[i];
+            superRareNotPicWeight -= _superRarePicWeight[i];
         }
         for (int i = 0; i < _rarePicWeight.Count; i++)
         {
-            rareNotPicWeight += _rarePicWeight[i];
+            rareNotPicWeight -= _rarePicWeight[i];
         }
         for (int i = 0; i < 3; i++)
         {
-            List<(CharacterBase, float)> characterList = new List<(CharacterBase, float)>();
+            List<(CharactorBase, float)> characterList = new List<(CharactorBase, float)>();
             switch (i)
             {
                 case 0:
@@ -79,12 +82,14 @@ public class GachaDate : MonoBehaviour
                             if (rareCharacter.Id == _rarePiclist[m].Id)
                             {
                                 _rareCharacterlist[k] = (rareCharacter, RareProbability * _rarePicWeight[m]);
+                                break;
                             }
                             else if (m == _rarePiclist.Count - 1)
                             {
                                 _rareCharacterlist[k] = (rareCharacter, (RareProbability * rareNotPicWeight) / (_rareCharacterlist.Count - _rarePiclist.Count));
                             }
                         }
+                        list[k] = _rareCharacterlist[k].Item2;
                         break;
                     case 2:
                         var superRareCharacter = _superRareCharacterlist[k].Item1;
@@ -93,12 +98,15 @@ public class GachaDate : MonoBehaviour
                             if (superRareCharacter.Id == _superRarePiclist[m].Id)
                             {
                                 _superRareCharacterlist[k] = (superRareCharacter, SuperRareProbability * _superRarePicWeight[m]);
+                                break;
                             }
                             else if (m == _superRarePiclist.Count - 1)
                             {
                                 _superRareCharacterlist[k] = (superRareCharacter, (SuperRareProbability * superRareNotPicWeight) / (_superRareCharacterlist.Count - _superRarePiclist.Count));
                             }
+                            
                         }
+                        
                         break;
                 }
             }

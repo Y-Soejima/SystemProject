@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using Cysharp.Threading.Tasks;
+using System;
+using Random = UnityEngine.Random;
 
 public class Gacha : MonoBehaviour
 {
@@ -13,13 +17,17 @@ public class Gacha : MonoBehaviour
     [SerializeField] int _max = default;
     [SerializeField] int _count;
     User _user;
+    string _url = "https://ixj1pygau7.execute-api.ap-northeast-1.amazonaws.com/dev/updateitem?UserId=";
     // Start is called before the first frame update
     void Start()
     {
         _user = User.Instance;
         _gachaDate = GachaDate.Instance;
         _requestStone = 5 * _num;
-        _button.OnClickAsObservable().Where(_ => _user.stone >= _requestStone).Subscribe(_ => { Draw(_num);  _user.stone -= _requestStone; }).AddTo(_button);
+        //_button.OnClickAsObservable().Where(_ => _user.stone >= _requestStone).Subscribe(_ => { Draw(_num);  _user.stone -= _requestStone; }).AddTo(_button);
+        _button.OnClickAsObservable().Where(_ => _user.stone >= _requestStone).Subscribe(async _ => {
+            Debug.Log(await PostApi(_url + _user.userId));
+        }).AddTo(_button);
     }
 
     void Draw(int num)
@@ -91,13 +99,13 @@ public class Gacha : MonoBehaviour
         CharacterGet(lotChara);
     }
 
-    CharacterBase CharacterLot(List<(CharacterBase, float)> characterList, float rand)
+    CharactorBase CharacterLot(List<(CharactorBase, float)> characterList, float rand)
     {
         float value = 0;
         for (int i = 0; i < characterList.Count;i++)
         {
             value += characterList[i].Item2;
-            if (rand < value)
+            if (rand < value || i == characterList.Count - 1)
             {
                 return characterList[i].Item1;
             }
@@ -105,7 +113,7 @@ public class Gacha : MonoBehaviour
         return null;
     }
 
-    void CharacterGet(CharacterBase getCharacter)
+    void CharacterGet(CharactorBase getCharacter)
     {
         for(int i = 0; i < _user._characterList.Count;i++)
         {
@@ -114,5 +122,13 @@ public class Gacha : MonoBehaviour
                 _user._characterList[i] = (_user._characterList[i].Item1, _user._characterList[i].Item2 + 1);
             }
         }
+    }
+
+    async UniTask<string> PostApi(string url)
+    {
+        UnityWebRequest response = UnityWebRequest.Post(url,"");
+        response.SetRequestHeader("Content-Type", "application/json");
+        await response.SendWebRequest();
+        return response.downloadHandler.text;
     }
 }
